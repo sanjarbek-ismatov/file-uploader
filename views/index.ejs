@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <form action="/upload" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" id="file" />
+        <input type="submit" value="Upload" />
+      </form>
+    </div>
+    <div class="filecontainer">
+      <% if(files){ %> <% files.map(file => { %> <% if(file.isImage){ %>
+      <img src="image/<%= file.filename %> " />
+      <a href="/download/<%= file.filename %> ">Download</a>
+      <form action="/del/<%= file.filename %>" method="GET">
+        <input type="submit" value="Delete" />
+      </form>
+      <% } else{ %>
+      <p><%= file.filename %></p>
+      <a href="/download/<%= file.filename %> ">Download</a>
+      <form action="/del/<%= file.filename %>" method="GET">
+        <input type="submit" value="Delete" />
+      </form>
+      <% } %> <% })%> <% } else{ %>
+      <p>no file</p>
+      <% } %>
+    </div>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: sans-serif;
+      }
+    </style>
+  </body>
+</html>
