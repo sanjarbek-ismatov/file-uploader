@@ -10,10 +10,10 @@ const path = require("path");
 const morgan = require("morgan");
 const { log } = require("console");
 const app = express();
-const mongoURL =
-  "mongodb+srv://sanjarbek:09122005I$a@cluster0.tx3g4ok.mongodb.net";
-const mongoLocalUrl = "mongodb://localhost/files";
-const connect = mongoose.createConnection(mongoLocalUrl);
+require("dotenv").config();
+
+const connect = mongoose.createConnection(process.env.MONGOURL);
+
 app.set("views", path.resolve(__dirname, "views"));
 app.set("view engine", "ejs");
 
@@ -32,7 +32,7 @@ connect.once("open", () => {
   });
 });
 const storage = new GridFsStorage({
-  url: mongoLocalUrl,
+  url: process.env.MONGOURL,
   file: (req, file) => {
     return new Promise((resolve, reject) => {
       crypto.randomBytes(16, (err, buff) => {
