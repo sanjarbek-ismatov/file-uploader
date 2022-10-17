@@ -105,4 +105,4 @@ app.get("/del/:filename", (req, res) => {
     res.redirect("/");
   });
 });
-app.listen(4000, () => log("Working"));
+app.listen(process.env.PORT || 4000, () => log("Working"));
