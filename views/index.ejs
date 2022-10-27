@@ -33,11 +33,7 @@
       <p>no file</p>
       <% } %>
     </div>
-    <script type="text/javascript">
-      alert(
-        "Iltimos to'g'ri maqsadda foydalaning! Xudodan qo'rq va insof qil!"
-      );
-    </script>
+
     <style>
       * {
         padding: 0;
@@ -85,4 +81,10 @@
       }
     </style>
   </body>
+  <script>
+    const password = prompt("Parolni kiriting");
+    if (password !== "uzrlekin") {
+      window.location.reload();
+    }
+  </script>
 </html>

@@ -35,15 +35,11 @@ const storage = new GridFsStorage({
   url: process.env.MONGOURL,
   file: (req, file) => {
     return new Promise((resolve, reject) => {
-      crypto.randomBytes(16, (err, buff) => {
-        if (err) return reject(err);
-        const filename = buff.toString("hex") + path.extname(file.originalname);
-        const fileInfo = {
-          filename: filename,
-          bucketName: "files",
-        };
-        resolve(fileInfo);
-      });
+      const fileInfo = {
+        filename: file.filename,
+        bucketName: "files",
+      };
+      resolve(fileInfo);
     });
   },
 });
