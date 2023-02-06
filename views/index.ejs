@@ -1,90 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>File uploader</title>
-  </head>
-  <body>
-    <div class="container">
-      <form action="/upload" method="POST" enctype="multipart/form-data">
-        <input class="custom-file-input" name="file" type="file" />
-        <input type="submit" value="Upload" />
-      </form>
-    </div>
-    <div class="filecontainer">
-      <% if(files){ %> <% files.map(file => { %> <% if(file.isImage){ %>
-      <img src="image/<%= file.filename %> " />
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-      <form action="/del/<%= file.filename %>" method="GET">
-        <a href="/download/<%= file.filename %> ">Download</a>
-        <input type="submit" value="Delete" />
-      </form>
-      <% } else{ %>
-      <p><%= file.filename %></p>
+  <title>File uploader</title>
+</head>
 
-      <form action="/del/<%= file.filename %>" method="GET">
-        <a href="/download/<%= file.filename %> ">Download</a>
-        <input type="submit" value="Delete" />
-      </form>
-      <% } %> <% })%> <% } else{ %>
-      <p>no file</p>
-      <% } %>
-    </div>
+<body>
+  <div class="container">
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+      <input class="custom-file-input" name="file" type="file" />
+      <input type="submit" value="Upload" />
+    </form>
+  </div>
+  <div class="filecontainer">
+    <% try{ %>
+      <% if(typeof files !=='undefined' ){ %>
+        <% files.map(file=> { %> <% if(file.isImage){ %>
+            <img src="image/<%= file.filename %> " />
 
-    <style>
-      * {
-        padding: 0;
-        margin: 0;
-        box-sizing: border-box;
-        font-family: sans-serif;
-      }
-      body {
-        padding: 20px;
-      }
-      input,
-      a {
-        padding: 10px;
-        text-decoration: none;
-        background-color: rgb(105, 105, 240);
-        color: #fff;
-        border: none;
-      }
-      p {
-        margin: 20px 0;
-      }
-      form[method="GET"] {
-        width: 100%;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-      }
-      input[type="submit"] {
-        font-size: 17px;
-      }
-      .container {
-        width: 100%;
-        text-align: center;
-        margin: 40px auto;
-      }
+            <form action="/del/<%= file.filename %>" method="GET">
+              <a href="/download/<%= file.filename %> ">Download</a>
+              <input type="submit" value="Delete" />
+            </form>
+            <% } else{ %>
+              <p>
+                <%= file.filename %>
+              </p>
 
-      img {
-        width: 100%;
-        height: auto;
-        margin: 20px auto;
-      }
+              <form action="/del/<%= file.filename %>" method="GET">
+                <a href="/download/<%= file.filename %> ">Download</a>
+                <input type="submit" value="Delete" />
+              </form>
+              <% } %>
+                <% })%>
+                  <% } else{ %>
+                    <p>no file</p>
+                    <% } %>
+                      <% }catch(ex){console.log(ex)} %>
+  </div>
 
-      .filecontainer {
-        width: 100%;
-      }
-    </style>
-  </body>
-  <script>
-    const password = prompt("Parolni kiriting");
-    if (password !== "uzrlekin") {
-      window.location.reload();
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      font-family: sans-serif;
     }
-  </script>
+
+    body {
+      padding: 20px;
+    }
+
+    input,
+    a {
+      padding: 10px;
+      text-decoration: none;
+      background-color: rgb(105, 105, 240);
+      color: #fff;
+      border: none;
+    }
+
+    p {
+      margin: 20px 0;
+    }
+
+    form[method="GET"] {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    input[type="submit"] {
+      font-size: 17px;
+    }
+
+    .container {
+      width: 100%;
+      text-align: center;
+      margin: 40px auto;
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+      margin: 20px auto;
+    }
+
+    .filecontainer {
+      width: 100%;
+    }
+  </style>
+</body>
+<!-- <script>
+  const password = prompt("Parolni kiriting");
+  if (password !== "uzrlekin") {
+    window.location.reload();
+  }
+</script> -->
+
 </html>
